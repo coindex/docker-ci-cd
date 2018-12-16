@@ -2,4 +2,12 @@
 
 ## dockerfile for coindex ci-cd image
 
-alpine openssh git python3 nodejs npm terraform
+alpine
+git
+openssh-client
+python3
+postgresql
+python3-dev gcc musl-dev postgresql-dev
+nodejs
+npm
+terraform
