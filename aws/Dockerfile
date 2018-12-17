@@ -11,4 +11,4 @@ RUN apk add --update --upgrade terraform
 
 RUN pip3 install --upgrade pip setuptools
 
-RUN touch /run/openrc/softlevel && service docker start
+RUN mkdir -p /run/openrc/ && touch /run/openrc/softlevel && service docker start
