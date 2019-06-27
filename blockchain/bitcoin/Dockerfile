@@ -14,17 +14,14 @@ RUN apk --update add --no-cache \
 
 WORKDIR /workdir
 
-RUN git clone --branch v0.18.0 --depth 1 https://github.com/bitcoin/bitcoin.git
-
 ARG BITCOIN_BUILD_CONFIG_PARAMS="--without-gui --disable-wallet"
 
-RUN cd bitcoin && \
+RUN git clone --branch v0.18.0 --depth 1 https://github.com/bitcoin/bitcoin.git . && \
   ./autogen.sh && \
   ./configure ${BITCOIN_BUILD_CONFIG_PARAMS} && \
   make -j$(nproc) && \
-  make install
-
-RUN rm -rf /workdir
+  make install && \
+  rm -rf /workdir
 
 WORKDIR /
 
