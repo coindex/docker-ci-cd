@@ -4,6 +4,7 @@ RUN apk --update add --no-cache \
   autoconf \
   automake \
   boost-dev \
+  db-dev \
   g++ \
   git \
   libevent-dev \
@@ -14,7 +15,10 @@ RUN apk --update add --no-cache \
 
 WORKDIR /workdir
 
-ARG BITCOIN_BUILD_CONFIG_PARAMS="--without-gui --disable-wallet"
+# --with-incompatible-bdb # breaks wallet import of default builds
+# --without-gui
+# --disable-wallet
+ARG BITCOIN_BUILD_CONFIG_PARAMS="--with-incompatible-bdb --without-gui"
 
 RUN git clone --branch v0.18.0 --depth 1 https://github.com/bitcoin/bitcoin.git . && \
   ./autogen.sh && \
