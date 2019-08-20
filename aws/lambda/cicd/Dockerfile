@@ -2,7 +2,9 @@ FROM amazonlinux:2
 
 # add base tools, dependencies and python ~3.7
 RUN yum install update -y \
+  gcc-c++ \
   git \
+  make \
   python3 \
   tar \
   unzip \
