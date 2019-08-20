@@ -41,8 +41,8 @@ RUN curl \
   /usr/local/bin/terraform && \
   rm -rf terraform_0.12.2_linux_amd64.zip
 
-# add serverless 1.45.1 and symlink into $PATH dir
-RUN npm install -g serverless@1.45.1 --ignore-scripts && \
+# add serverless 1.50.0 and symlink into $PATH dir
+RUN npm install -g serverless@1.50.0 --ignore-scripts && \
   ln -fs node-v10.16.0-linux-x64/bin/serverless \
   /usr/local/bin/serverless && \
   ln -fs /usr/local/cndx/deps/node-v10.16.0-linux-x64/bin/sls \
