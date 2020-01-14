@@ -23,6 +23,7 @@ RUN apk update \
 	&& rm -rf glibc-${GLIBC_VERSION}.apk \
   && rm -rf glibc-bin-${GLIBC_VERSION}.apk \
   && mkdir -p .litecoin \
+
 COPY litecoin.conf .litecoin
 
 RUN chown -R coindex:coindex /home/coindex/.litecoin
