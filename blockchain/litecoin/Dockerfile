@@ -5,31 +5,23 @@ ENV GLIBC_VERSION=2.30-r0
 
 WORKDIR /workdir
 
-RUN apk --update add --no-cache \
-  autoconf \
-  automake \
-  boost-dev \
-  db-dev \
-  g++ \
-  git \
-  libevent-dev \
-  libtool \
-  make \
-  openssl-dev \
-  pkgconf-dev
-
-# --with-incompatible-bdb # breaks wallet import of default builds
-# --without-gui
-# --disable-wallet
-ARG LITECOIN_BUILD_CONFIG_PARAMS="--with-incompatible-bdb --without-gui"
-
-RUN wget -c https://github.com/litecoin-project/litecoin/archive/v${LITECOIN_VERSION}.tar.gz -O -| tar -xz \
-	&& mv litecoin-0.17.1/* . && rm -rf litecoin-0.17.1/ \
-	&& ./autogen.sh \
-	&& ./configure ${LITECOIN_BUILD_CONFIG_PARAMS} \
-	&& make -j$(nproc) \
-	&& make install \
-	&& rm -rf /workdir
+RUN apk update \
+	&& apk --no-cache add wget ca-certificates \
+	&& wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub \
+	&& wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-${GLIBC_VERSION}.apk \
+	&& wget https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${GLIBC_VERSION}/glibc-bin-${GLIBC_VERSION}.apk \
+ 	&& apk --no-cache add glibc-${GLIBC_VERSION}.apk \
+	&& apk --no-cache add glibc-bin-${GLIBC_VERSION}.apk \
+	&& wget https://download.litecoin.org/litecoin-${LITECOIN_VERSION}/linux/litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
+	&& tar xzvf litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
+	&& apk del wget ca-certificates \
+	&& mv litecoin-${LITECOIN_VERSION}/bin/* /usr/local/bin/ \
+	&& rm -rf litecoin-${LITECOIN_VERSION}/ \
+	&& rm -rf litecoin-${LITECOIN_VERSION}-x86_64-linux-gnu.tar.gz \
+	&& rm -rf glibc-${GLIBC_VERSION}.apk \
+  && rm -rf glibc-bin-${GLIBC_VERSION}.apk \
+  && mkdir -p .litecoin \
+  && rm -rf workdir
 
 WORKDIR /
 
