@@ -3,9 +3,7 @@ FROM alpine:latest
 ENV LITECOIN_VERSION=0.17.1
 ENV GLIBC_VERSION=2.30-r0
 
-RUN adduser -D -g "" coindex
-
-WORKDIR /home/coindex
+WORKDIR /workdir
 
 RUN apk update \
 	&& apk --no-cache add wget ca-certificates \
@@ -23,11 +21,8 @@ RUN apk update \
 	&& rm -rf glibc-${GLIBC_VERSION}.apk \
   && rm -rf glibc-bin-${GLIBC_VERSION}.apk \
   && mkdir -p .litecoin \
+  && rm -rf workdir
 
-COPY litecoin.conf .litecoin
-
-RUN chown -R coindex:coindex /home/coindex/.litecoin
-
-USER coindex
+WORKDIR /
 
 ENTRYPOINT ["litecoind"]
