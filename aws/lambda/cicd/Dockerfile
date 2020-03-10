@@ -3,6 +3,7 @@ FROM amazonlinux:2
 RUN yum install update -y \
   tar \
   xz \
+  gcc* \
   make && \
   yum clean all && \
   rm -rf /var/cache/yum
