@@ -3,10 +3,16 @@ FROM amazonlinux:2
 ARG NODE_VERSION=v12.16.2
 
 RUN yum install update -y \
+  autoconf \
+  gcc \
+  gcc-c++ \
   git \
   gzip \
+  make \
   tar \
+  unzip \
   xz \
+  zip \
   yum groupinstall "Development Tools" && \
   yum clean all && \
   rm -rf /var/cache/yum
