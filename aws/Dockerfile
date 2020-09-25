@@ -13,6 +13,8 @@ RUN yum install update -y \
   unzip \
   xz \
   zip \
+  xorg-x11-server-Xvfb gtk2-devel gtk3-devel \
+  libnotify-devel GConf2 nss libXScrnSaver alsa-lib \
   yum groupinstall "Development Tools" && \
   yum clean all && \
   rm -rf /var/cache/yum
@@ -30,5 +32,10 @@ RUN curl \
   ln -fs /usr/local/cndx/deps/node-$NODE_VERSION-linux-x64/bin/npx \
   /usr/local/bin/npx && \
   rm -rf node-$NODE_VERSION-linux-x64.tar.xz
+
+RUN curl \
+  https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip \
+  && unzip awscliv2.zip \
+  && ./aws/install
 
 WORKDIR /
