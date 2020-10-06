@@ -1,0 +1,16 @@
+#!/bin/bash
+echo "hello"
+#  MOUNT NVME1
+sudo mkfs -t xfs /dev/nvme1n1 
+sudo mkdir /data
+sudo mount /dev/nvme1n1 /data 
+
+# Docker point to /data <- nvme mounting point
+sudo cat > /etc/docker/daemon.json << EOF
+{
+  "data-root": "/data/docker"
+}
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl restart docker
