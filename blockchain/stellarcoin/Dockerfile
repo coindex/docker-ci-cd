@@ -22,4 +22,4 @@ RUN apk update \
     && make \
     && make check \
     && make install
-ENTRYPOINT [ "stellar-core run" ]
+ENTRYPOINT [ "stellar-core run" ] 
