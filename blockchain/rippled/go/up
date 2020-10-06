@@ -8,6 +8,7 @@ self(){
 $(self)/down
 
 PORT=5005
+PORT2=51235
 
 CUSTOMPORT=$(echo $1|egrep "^[0-9]+$"|wc -l)
 
@@ -19,6 +20,7 @@ docker run \
     -dit \
     --name rippled \
     -p $PORT:5005 \
+    -p $PORT2:51235 \
     -v $(self)/../config:/config/ \
     rippled:latest
 
