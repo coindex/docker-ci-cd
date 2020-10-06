@@ -1,3 +1,3 @@
-# bitcoin
+# blockchain bitcoin
 
-## dockerfile used for blockchain interactions at coindex w.r.t bitcoin
+## dockerfile used to host a blockchain node at coindex w.r.t bitcoin
